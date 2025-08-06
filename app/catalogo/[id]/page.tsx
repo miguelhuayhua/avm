@@ -6,7 +6,7 @@ const getProducto = async (id: string) => {
   return await fetch(`https://uayua.com/uayua/api/publicaciones/get?url=${id}&fields=id,titulo,imagenes,subtitulo,colecciones,caracteristicas,estado,variantes:valores,opciones,opciones:valores,opciones:id,opciones:nombre,variantes:id,variantes:titulo,variantes:estado,variantes:precio,descripcion,variantes:imagen,categorias:categoria`, {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_UAYUATOKEN}`,
-      'Origin': 'https://avm.vercel.app'
+      'Origin': 'https://avm-bo.vercel.app'
     }
   }).then(res => res.json())
 }
