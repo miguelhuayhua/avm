@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     const imagenPrincipal = producto.imagenes?.[0].url
     const precio = producto.variantes?.[0]?.precio || null
     return {
-      title: `${titulo} | Neobo`,
+      title: `${titulo} | AVM`,
       description: descripcion,
       keywords: [
         titulo,
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         title: titulo,
         description: descripcion,
         type: 'article',
-        url: `https://neobo.vercel.app/catalogo/${id}`,
+        url: `https://avm-bo.vercel.app/catalogo/${id}`,
         images:
         {
           url: imagenPrincipal,
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
           href: imagenPrincipal
         }
         ,
-        siteName: 'Neobo',
+        siteName: 'AVM',
         locale: 'es_ES',
       },
 
@@ -59,8 +59,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         title: titulo,
         description: descripcion,
         images: imagenPrincipal ? [imagenPrincipal] : [],
-        creator: '@neobo',
-        site: '@neobo',
+        creator: '@AVM',
+        site: '@AVM',
       },
 
       // Metadatos para productos/ecommerce
@@ -68,13 +68,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         'product:price:amount': precio?.toString() || '',
         'product:price:currency': 'USD', // Ajusta según tu moneda
         'product:availability': producto.estado ? 'in stock' : 'out of stock',
-        'product:brand': 'Neobo', // Ajusta según corresponda
+        'product:brand': 'AVM', // Ajusta según corresponda
         'product:category': producto.categorias.at(0)?.categoria?.nombre || '',
       },
 
       // Canonical URL
       alternates: {
-        canonical: `https://neobo.vercel.app/producto/${id}`,
+        canonical: `https://avm-bo.vercel.app/producto/${id}`,
       },
 
       // Robots
