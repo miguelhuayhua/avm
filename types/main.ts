@@ -52,9 +52,17 @@ export type CategoriaPublicacion = {
   categoria?: Categoria
 }
 
+export type ColeccionPublicacion = {
+  publicacionId: string
+  coleccionId: string
+  publicacion?: Publicacion
+}
+
 export type Coleccion = {
   id: string;
   nombre: string;
+  ruta?: string;
+  publicaciones: ColeccionPublicacion[]
 };
 
 export type Publicacion = {

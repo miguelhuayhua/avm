@@ -6,7 +6,6 @@ import { useEffect, useState } from "react"
 import { Categoria } from "@/types/main"
 export default function Footer() {
   const enlaces = ["nosotros", "contacto", "servicios"]
-  const colecciones = []
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   useEffect(() => {
     fetch('https://uayua.com/uayua/api/categorias/getall?fields=nombre,id,ruta', {
@@ -15,6 +14,15 @@ export default function Footer() {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_UAYUATOKEN}`
       }
     }).then(res => res.json()).then(setCategorias)
+  }, [])
+  const [colecciones, setColecciones] = useState<Categoria[]>([]);
+  useEffect(() => {
+    fetch('https://uayua.com/uayua/api/colecciones/getall?fields=nombre,id,ruta', {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_UAYUATOKEN}`
+      }
+    }).then(res => res.json()).then(setColecciones)
   }, [])
   return (
     <footer className="bg-slate-800 text-white py-10">
@@ -54,11 +62,11 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold mb-3">Categorías</h4>
             <ul className="space-y-2 text-slate-300">
-              {categorias.map((enlace, j) => (
+              {categorias.map((categoria, j) => (
                 <li key={j}>
 
-                  <Link href={enlace.ruta || enlace.id} className="transition-colors capitalize duration-300 text-sm font-medium">
-                    {enlace.nombre}
+                  <Link href={`/catalogo?categoria=${categoria.ruta || categoria.id}`} className="transition-colors capitalize duration-300 text-sm font-medium">
+                    {categoria.nombre}
                   </Link>
                 </li>
               ))}
@@ -68,11 +76,11 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold mb-3">Colecciones</h4>
             <ul className="space-y-2 text-slate-300">
-              {enlaces.map((enlace, j) => (
+              {colecciones.map((coleccion, j) => (
                 <li key={j}>
 
-                  <Link href={`/#${enlace}`} className="transition-colors capitalize duration-300 text-sm font-medium">
-                    {enlace}
+                  <Link href={`/catalogo?coleccion=${coleccion.ruta || coleccion.id}`} className="transition-colors capitalize duration-300 text-sm font-medium">
+                    {coleccion.nombre}
                   </Link>
                 </li>
               ))}

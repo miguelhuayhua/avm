@@ -48,7 +48,7 @@ export default function Producto({ producto }: Props) {
             src={
               producto.imagenes.find((img) => img.orden === 0)?.url || producto.imagenes[0]?.url || "/placeholder.svg"
             }
-            alt={producto.titulo}
+            alt={"título"}
             width={300}
             height={200}
             className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
@@ -62,7 +62,7 @@ export default function Producto({ producto }: Props) {
       <CardContent className="p-4">
         <div className="flex items-center justify-between mb-2">
           <div className="flex flex-wrap gap-1">
-            {producto.categorias.slice(0, 2).map((cat, index) => (
+            {producto.categorias.map((cat, index) => (
               <Badge key={index} variant="outline" className="text-xs">
                 {cat.categoria?.nombre}
               </Badge>
@@ -107,7 +107,7 @@ export default function Producto({ producto }: Props) {
         </div>
 
         <Separator className="my-2" />
-        <span className="text-xs text-secondary">
+        <span className="text-xs font-semibold">
           <span className="font-bold text-primary">{producto.variantes.length}</span> {producto.variantes.length > 1 ? "variantes disponibles" : "variante disponible"}
         </span>
         <div className="flex items-center justify-center">

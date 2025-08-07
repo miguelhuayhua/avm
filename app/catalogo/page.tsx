@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, Grid3X3, Heart, List, Search, SlidersHorizontal, Eye, Phone, LoaderCircle } from "lucide-react"
+import { Check, Grid3X3, Heart, List, Search, SlidersHorizontal, Eye, Phone, LoaderCircle, ChevronLeft } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -12,35 +12,42 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import Producto from "../components/producto"
 import { Categoria, Publicacion } from "@/types/main"
+import { useRouter, useSearchParams } from "next/navigation"
 
 
 
-const categorias = ["Todos", "Ventanas", "Muebles", "Vidrios"]
 
 export default function CatalogoPage() {
 
-
+    const params = useSearchParams();
     const [busqueda, setBusqueda] = useState("")
     const [categorias, setCategorias] = useState<Categoria[]>([{ id: "", nombre: "todos" }])
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("todos")
-
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(params.get('categoria') || 'todos')
+    const router = useRouter();
     const [productosFiltrados, setProductosFiltrados] = useState<Publicacion[]>([])
     const [rangoPrecios, setRangoPrecios] = useState([0, 500])
     const [filtroCalificacion, setFiltroCalificacion] = useState(0)
-    const [mostrarFiltros, setMostrarFiltros] = useState(false)
+    const [mostrarFiltros] = useState(false)
     const [productos, setProductos] = useState<Publicacion[]>([]);
 
     const [isVisible, setIsVisible] = useState(false);
     useEffect(() => {
-
-        fetch('https://uayua.com/uayua/api/publicaciones/getall?fields=titulo,imagenes,caracteristicas,estado,variantes,colecciones,categorias:categoria', {
+        const coleccion = params.get('coleccion');
+        fetch(`https://uayua.com/uayua/api/publicaciones/getall?fields=titulo,imagenes,caracteristicas,estado,variantes,colecciones:coleccion,categorias:categoria${coleccion ? (`&where=colecciones.coleccion.nombre.contains=${coleccion}`) : ''}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${process.env.NEXT_PUBLIC_UAYUATOKEN}`
             }
         }).then(res => res.json()).then(data => {
+            const cat = params.get('categoria') || 'todos'
+            setCategoriaSeleccionada(cat)
             setProductos(data)
-            setProductosFiltrados(data)
+            console.log(data)
+            if (cat == 'todos') {
+                setProductosFiltrados(data);
+            }
+            else
+                setProductosFiltrados(data.filter((producto: any) => producto.categorias.some((value: any) => value.categoria?.nombre.toLowerCase() == cat.toLowerCase())))
         })
     }, []);
     useEffect(() => {
@@ -54,6 +61,15 @@ export default function CatalogoPage() {
             setIsVisible(true);
         })
     }, [])
+    useEffect(() => {
+        const cat = params.get('categoria') || 'todos'
+        setCategoriaSeleccionada(cat)
+        if (cat == 'todos') {
+            setProductosFiltrados(productos);
+        }
+        else
+            setProductosFiltrados(productos.filter(producto => producto.categorias.some(value => value.categoria?.nombre.toLowerCase() == cat.toLowerCase())))
+    }, [params])
     return (
         <div className="min-h-screen  text-slate-900 relative font-inter">
 
@@ -75,6 +91,18 @@ export default function CatalogoPage() {
                 {/* Page Header */}
                 <section className="container mx-auto px-4 py-8">
                     <div className="text-center mb-8">
+                        {
+                            params.get('coleccion') && (
+                                <div className="flex items-center justify-center gap-5 mb-6">
+                                    <Button variant="outline" size='icon' onClick={() => router.back()}>
+                                        <ChevronLeft />
+                                    </Button>
+                                    <h3 className=" font-bold text-primary text-lg">Estás buscando en la colección de <span className="text-secondary capitalize">
+                                        "{params.get('coleccion')}"</span></h3>
+                                </div>
+                            )
+                        }
+
                         <h1 className="text-3xl md:text-4xl font-bold mb-3">Catálogo de Productos</h1>
                         <p className="text-base">
                             Descubre nuestra gama completa de ventanas de aluminio, muebles de melamina y vidrios
@@ -93,25 +121,20 @@ export default function CatalogoPage() {
                                         setProductosFiltrados(productos.filter(producto => producto.titulo.toLowerCase().includes(e.target.value.toLowerCase())))
                                         setBusqueda(e.target.value)
                                     }}
-                                    className="text-sm"
+                                    className="text-sm bg-white"
                                 />
                             </div>
 
                             {/* Category Filter */}
-                            <Tabs value={categoriaSeleccionada} onValueChange={(value) => {
-                                setCategoriaSeleccionada(value);
-                                if (value == 'todos') {
-                                    setProductosFiltrados(productos);
-                                }
-                                else
-                                    setProductosFiltrados(productos.filter(producto => producto.categorias.some(cat => cat.categoria?.nombre.toLowerCase() == value.toLowerCase())))
+                            <Tabs value={categoriaSeleccionada.toLowerCase()} onValueChange={(value) => {
+                                router.push(`/catalogo?categoria=${value.toLowerCase()}`)
 
                             }}>
                                 <TabsList className="">
                                     {isVisible ? categorias.map((categoria) => (
                                         <TabsTrigger
                                             key={categoria.nombre}
-                                            value={categoria.nombre}
+                                            value={categoria.nombre.toLowerCase()}
                                             className="capitalize p-2"
                                         >
                                             {categoria.nombre}
@@ -190,31 +213,29 @@ export default function CatalogoPage() {
                             Mostrando {productosFiltrados.length} de {productos.length} productos
                         </p>
                     </div>
-                    <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {productosFiltrados.map((producto, i) => (
-                            <Producto key={producto.id} producto={producto} />
-                        ))}
-                    </div>
+                    {
+                        productosFiltrados.length > 0 ?
+                            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
-                    {/* No Results */}
-                    {productos.length === 0 && (
-                        <div className="text-center py-12">
-                            <div className="mb-4">
-                                <Search className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                                <h3 className="text-lg font-semibold mb-2">No se encontraron productos</h3>
-                                <p className="text-sm">Intenta ajustar tus filtros de búsqueda</p>
+                                {productosFiltrados.map((producto, i) => (
+                                    <Producto key={producto.id} producto={producto} />
+                                ))}
                             </div>
-                            <Button
-                                onClick={() => {
-                                    setBusqueda("")
-                                    setCategoriaSeleccionada("Todos")
-                                    setRangoPrecios([0, 800])
-                                }}
-                            >
-                                Limpiar Filtros
-                            </Button>
-                        </div>
-                    )}
+
+                            :
+                            <div className="flex flex-col justify-center max-w-xs mx-auto gap-5">
+                                <Search className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                                <p className="text-center text-muted-foreground my-2 text-lg ">
+                                    Sin resultados
+                                </p>
+                                <Button onClick={() => router.back()} variant="outline" >
+                                    <ChevronLeft />
+                                    Regresar
+                                </Button>
+                            </div>
+                    }
+
+
                 </section>
             </div>
         </div>

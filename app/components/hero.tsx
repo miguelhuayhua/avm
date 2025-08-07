@@ -31,7 +31,7 @@ export default function Hero() {
                                 <div
                                     className={`flex flex-col sm:flex-row gap-3 mb-6 transition-all duration-1000 delay-500 `}
                                 >
-                                    <Link href="/catalogo">
+                                    <Link href="/catalogo?categoria=todos">
                                         <Button className="group text-sm font-medium">
                                             Ver Catálogo
                                             <ArrowRight className="ml-2 w-3 h-3 group-hover:translate-x-1 transition-transform" />
