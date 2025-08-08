@@ -16,12 +16,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params
 
   const response = await getProducto(id)
-  console.log(response)
   const producto = response;
   if (producto) {
     const titulo = producto.titulo
     const descripcion = producto.descripcion || producto.subtitulo || `Descubre ${titulo} en nuestra tienda online.`
-    const imagenPrincipal = producto.imagenes?.[0].url
+    const imagenPrincipal = producto.imagenes.length > 0 ? producto.imagenes?.[0].url : '/placeholder.svg'
     const precio = producto.variantes?.[0]?.precio || null
     return {
       title: `${titulo} | AVM`,
