@@ -62,7 +62,7 @@ export type Coleccion = {
   id: string;
   nombre: string;
   ruta?: string;
-  publicaciones: ColeccionPublicacion[]
+  publicaciones: Publicacion[]
 };
 
 export type Publicacion = {

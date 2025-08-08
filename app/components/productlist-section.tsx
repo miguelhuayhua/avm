@@ -13,7 +13,7 @@ export default function ProductListSection() {
     {/* Hero Section */ }
 
     useEffect(() => {
-        fetch('https://uayua.com/uayua/api/colecciones/getall?fields=nombre,id,publicaciones:publicacion,publicaciones:publicacion:imagenes,publicaciones:publicacion:variantes,publicaciones:publicacion:caracteristicas,publicaciones:publicacion:categorias,publicaciones:publicacion:titulo,publicaciones:publicacion:url,publicaciones:publicacion:id,publicaciones:take=10', {
+        fetch('https://uayua.com/uayua/api/colecciones/getall?fields=nombre,id,publicaciones:imagenes,publicaciones:variantes,publicaciones:caracteristicas,publicaciones:categorias,publicaciones:titulo,publicaciones:url,publicaciones:id,publicaciones:take=10', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${process.env.NEXT_PUBLIC_UAYUATOKEN}`
@@ -48,7 +48,7 @@ export default function ProductListSection() {
                                 </Button>
                             </div>
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                                {coleccion.publicaciones.map(({ publicacion }, i) => (
+                                {coleccion.publicaciones.map((publicacion, i) => (
                                     <Producto key={i} producto={publicacion!} />
                                 ))}
                             </div>

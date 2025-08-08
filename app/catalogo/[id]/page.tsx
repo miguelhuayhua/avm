@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Client from './client'
 
 const getProducto = async (id: string) => {
-  return await fetch(`https://uayua.com/uayua/api/publicaciones/get?url=${id}&fields=id,titulo,imagenes,subtitulo,colecciones:coleccion,caracteristicas,estado,variantes:valores,opciones:valores,opciones:id,opciones:nombre,variantes:id,variantes:titulo,variantes:estado,variantes:precio,descripcion,variantes:imagen,categorias:categoria`, {
+  return await fetch(`https://uayua.com/uayua/api/publicaciones/get?url=${id}&fields=id,titulo,imagenes,subtitulo,coleccion,caracteristicas,estado,variantes:valores,opciones:valores,opciones:id,opciones:nombre,variantes:id,variantes:titulo,variantes:estado,variantes:precio,descripcion,variantes:imagen,categorias:categoria`, {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_UAYUATOKEN}`,
       'Origin': 'https://avm-bo.vercel.app'
@@ -27,10 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       description: descripcion,
       keywords: [
         titulo,
-        ...(producto.categorias?.map((cat: any) => cat.categoria) || []),
-        ...(producto.colecciones || []),
-        'tienda online',
-        'comprar',
+       
       ].join(', '),
 
       // Open Graph

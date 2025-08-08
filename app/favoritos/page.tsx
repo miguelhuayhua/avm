@@ -39,7 +39,7 @@ const FavoritosPage = () => {
         // Simular fetch de productos favoritos
         // En tu caso real, harías una llamada a la API con los IDs
         const response = await fetch(
-          "https://uayua.com/uayua/api/publicaciones/getall?fields=titulo,imagenes,caracteristicas,variantes,colecciones,categorias",
+          "https://uayua.com/uayua/api/publicaciones/getall?fields=titulo,imagenes,caracteristicas,variantes,coleccion,categorias",
           {
             method: "GET",
             headers: {

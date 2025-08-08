@@ -33,7 +33,7 @@ export default function CatalogoPage() {
     const [isVisible, setIsVisible] = useState(false);
     useEffect(() => {
         const coleccion = params.get('coleccion');
-        fetch(`https://uayua.com/uayua/api/publicaciones/getall?fields=titulo,imagenes,caracteristicas,estado,variantes,colecciones:coleccion,categorias:categoria${coleccion ? (`&where=colecciones.coleccion.nombre.contains=${coleccion}`) : ''}`, {
+        fetch(`https://uayua.com/uayua/api/publicaciones/getall?fields=titulo,imagenes,caracteristicas,estado,variantes,coleccion,categorias:categoria${coleccion ? (`&where=coleccion.nombre.contains=${coleccion}`) : ''}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${process.env.NEXT_PUBLIC_UAYUATOKEN}`

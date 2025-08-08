@@ -133,14 +133,7 @@ export default function ProductDetailPage({ producto }: Props) {
                                     className="object-cover w-full h-full"
                                 />
                                 {/* Badges */}
-                                <div className="absolute top-4 left-4 flex flex-col gap-2">
-                                    {producto.colecciones.some((c) => c.coleccion.nombre === "Más Vendido") && (
-                                        <Badge>🏆 Más Vendido</Badge>
-                                    )}
-                                    {producto.colecciones.some((c) => c.coleccion.nombre === "Oferta") && <Badge>🔥 Oferta</Badge>}
-                                    {producto.colecciones.some((c) => c.coleccion.nombre === "Nuevo") && <Badge>✨ Nuevo</Badge>}
-                                    {producto.colecciones.some((c) => c.coleccion.nombre === "Popular") && <Badge>⭐ Popular</Badge>}
-                                </div>
+
                             </div>
                             {/* Thumbnail Images */}
                             <div className="flex space-x-2">
@@ -211,9 +204,19 @@ export default function ProductDetailPage({ producto }: Props) {
                             {/* Actions */}
                             <div className="space-y-4">
                                 <div className="flex space-x-3">
-                                    <Button className="flex-1 text-lg py-6">
-                                        <Phone className="w-5 h-5 mr-2" />
-                                        Solicitar Cotización
+                                    <Button asChild className="flex-1 text-lg py-6">
+                                        <Link
+                                            href={`https://wa.me/59169848691?text=${encodeURIComponent(
+                                                `Hola, estoy interesado en el producto "${producto.titulo}" https://avm-bo.vercel.app/catalogo/${producto.url || producto.id}. ¿Podría brindarme más información?`
+                                            )}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex-1"
+                                        >
+                                            <Phone className="w-5 h-5 mr-2" />
+                                            Solicitar Cotización
+                                        </Link>
+
                                     </Button>
                                     <Button
                                         variant="outline"
