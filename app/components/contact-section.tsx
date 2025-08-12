@@ -27,7 +27,7 @@ export default function ContactSection() {
                             <div className="space-y-3">
                                 {[
                                     { icon: Phone, texto: "+591 78771760 - 69848691", etiqueta: "Llámanos" },
-                                    
+
                                     { icon: MapPin, texto: "El Alto, Bolivia, Z. Nueva Marca, Av. Quillacollo", etiqueta: "Visítanos" },
                                 ].map((item, i) => (
                                     <Card
@@ -54,14 +54,22 @@ export default function ContactSection() {
                                         Te responderemos en menos de 24 horas
                                     </CardDescription>
                                 </CardHeader>
-                                <form className="space-y-3">
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <Input placeholder="Nombre" className="text-sm font-medium" />
-                                        <Input placeholder="Apellidos" className="text-sm font-medium" />
+                                <form onSubmit={(e) => {
+                                    e.preventDefault()
+                                    let formData = new FormData(e.target as HTMLFormElement);
+                                    let a = document.createElement('a');
+                                    a.href = `https://api.whatsapp.com/send?phone=59169848691&text=${encodeURIComponent(`Nombre: ${formData.get('nombre')}\nAsunto: ${formData.get('asunto')}\nMensaje: ${formData.get('proyecto')}`)}`;
+                                    a.target = '_blank';
+                                    a.click();
+                                    a.remove();
+                                }} className="space-y-3">
+                                    <div className="grid grid-cols-1 gap-3">
+                                        <Input name="nombre" placeholder="Nombre" className="text-sm font-medium" />
+
                                     </div>
-                                    <Input type="email" placeholder="Correo Electrónico" className="text-sm font-medium" />
-                                    <Input placeholder="Teléfono" className="text-sm font-medium" />
-                                    <Textarea placeholder="Describe tu proyecto" rows={3} className="text-sm font-medium" />
+
+                                    <Input name="asunto" placeholder="Asunto" className="text-sm font-medium" />
+                                    <Textarea name="proyecto" placeholder="Describe tu proyecto" rows={3} className="text-sm font-medium" />
                                     <Button className="w-full text-sm font-medium">Solicitar Presupuesto</Button>
                                 </form>
                             </Card>
