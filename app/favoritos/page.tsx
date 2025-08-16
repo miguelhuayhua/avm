@@ -9,7 +9,6 @@ import { toggleFavProduct } from "@/store/reducers/user" // Manteniendo tu acci�
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Heart, Search, ArrowLeft, Trash2, Star, TrendingUp, ShoppingCart, Zap, Grid3X3, List } from "lucide-react"
-import { Badge } from "@/components/ui/badge" // Añadido para el diseño
 
 // Asegúrate de que tu tipo Publicacion esté definido en "@/types/main"
 import type { Publicacion } from "@/types/main"
@@ -39,7 +38,7 @@ const FavoritosPage = () => {
         // Simular fetch de productos favoritos
         // En tu caso real, harías una llamada a la API con los IDs
         const response = await fetch(
-          "https://uayua.com/uayua/api/publicaciones/getall?fields=titulo,imagenes,caracteristicas,variantes,coleccion,categorias",
+          "https://uayua.com/uayua/api/publicaciones/getall?fields=titulo,imagenes,caracteristicas,variantes,coleccion,categorias:categoria",
           {
             method: "GET",
             headers: {
@@ -196,7 +195,7 @@ const FavoritosPage = () => {
               )}
             </div>
             <p className="text-gray-400 text-sm">
-              {isLoading ? "Cargando..." : `${filteredProductos.length} de ${favProducts.length} productos`}
+              {`${favProducts.length} productos que te gustaron`}
             </p>
           </motion.div>
 

@@ -13,7 +13,7 @@ export default function ProductListSection() {
     {/* Hero Section */ }
 
     useEffect(() => {
-        fetch('https://uayua.com/uayua/api/colecciones/getall?fields=nombre,id,publicaciones:imagenes,publicaciones:variantes,publicaciones:caracteristicas,publicaciones:categorias,publicaciones:titulo,publicaciones:url,publicaciones:id,publicaciones:take=10', {
+        fetch('https://uayua.com/uayua/api/colecciones/getall?fields=nombre,id,publicaciones:imagenes,publicaciones:variantes,publicaciones:caracteristicas,publicaciones:categorias:categoria,publicaciones:titulo,publicaciones:url,publicaciones:id,publicaciones:take=10', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${process.env.NEXT_PUBLIC_UAYUATOKEN}`
@@ -24,7 +24,7 @@ export default function ProductListSection() {
         })
     }, [])
     return (
-        <section id="productos" className="py-16  backdrop-blur-sm">
+        <section id="productos" className="  backdrop-blur-sm">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-2xl md:text-3xl font-bold mb-3 animate-fade-in-up">Nuestros Productos</h2>

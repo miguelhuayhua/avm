@@ -43,7 +43,7 @@ export default function Navbar() {
                 </Button>
               </Link>
               <Link
-                href="https://wa.me/59169848691?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20ventanas%2C%20melamina%20y%20vidrier%C3%ADa."
+                href="https://wa.me/59169848691?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20productos%20y%20servicios."
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -20,7 +20,7 @@ export default function Hero() {
                                 >
                                     <span className="text-blue-700">
                                         AVM
-                                    </span> - Aluminio Ventanas Melamina
+                                    </span> - Aluminio Vidrio Melamina
                                 </h1>
                                 <p
                                     className={`text-base md:text-lg mb-6 transition-all duration-1000 delay-300 leading-relaxed`}

@@ -262,7 +262,7 @@ export default function ProductDetailPage({ producto }: Props) {
                                 <Card className="bg-white/90 backdrop-blur-sm">
                                     <CardContent className="p-6">
                                         <div className="prose prose-slate max-w-none">
-                                            <p className="leading-relaxed whitespace-pre-line">{producto.descripcion}</p>
+                                            <p className="leading-relaxed whitespace-pre-line">{producto.descripcion || "Sin descripción"}</p>
                                         </div>
                                     </CardContent>
                                 </Card>
@@ -272,15 +272,21 @@ export default function ProductDetailPage({ producto }: Props) {
                                 <Card className="bg-white/90 backdrop-blur-sm">
                                     <CardContent className="p-6">
                                         <div className="grid md:grid-cols-2 gap-4">
-                                            {producto.caracteristicas.map((caracteristica) => (
-                                                <div
-                                                    key={caracteristica.id}
-                                                    className="flex justify-between items-center py-3 border-b last:border-b-0"
-                                                >
-                                                    <span className="font-medium">{caracteristica.nombre}:</span>
-                                                    <span>{caracteristica.valor}</span>
-                                                </div>
-                                            ))}
+                                            {
+                                                producto.caracteristicas.length > 0 ?
+                                                    producto.caracteristicas.map((caracteristica) => (
+                                                        <div
+                                                            key={caracteristica.id}
+                                                            className="flex justify-between items-center py-3 border-b last:border-b-0"
+                                                        >
+                                                            <span className="font-medium">{caracteristica.nombre}:</span>
+                                                            <span>{caracteristica.valor}</span>
+                                                        </div>
+                                                    )) :
+                                                    <div className="text-center col-span-2 text-gray-500">
+                                                        No hay especificaciones disponibles.
+                                                    </div>
+                                            }
                                         </div>
                                     </CardContent>
                                 </Card>
