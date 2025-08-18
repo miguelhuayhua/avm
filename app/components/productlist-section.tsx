@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Coleccion, Publicacion } from "@/types/main"
 import Producto from "./producto"
 import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
+import { Loader, Plus } from "lucide-react"
 import Link from "next/link"
 
 export default function ProductListSection() {
@@ -34,28 +34,35 @@ export default function ProductListSection() {
                 </div>
 
                 {
-                    colecciones.map(coleccion => (
-                        <div key={coleccion.id}>
-                            <div className="flex items-center justify-between w-full">
-                                <h2 className="text-lg my-9 md:text-xl capitalize font-bold text-primary">
-                                    {coleccion.nombre}
+                    isVisible ? (
 
-                                </h2>
-                                <Button variant="outline" asChild>
-                                    <Link href={`/catalogo?coleccion=${coleccion.nombre.toLowerCase()}&categoria=todos`}>
-                                    Ver más <Plus />
-                                    </Link>
-                                </Button>
+                        colecciones.map(coleccion => (
+                            <div key={coleccion.id}>
+                                <div className="flex items-center justify-between w-full">
+                                    <h2 className="text-lg my-9 md:text-xl capitalize font-bold text-primary">
+                                        {coleccion.nombre}
+
+                                    </h2>
+                                    <Button variant="outline" asChild>
+                                        <Link href={`/catalogo?coleccion=${coleccion.nombre.toLowerCase()}&categoria=todos`}>
+                                            Ver más <Plus />
+                                        </Link>
+                                    </Button>
+                                </div>
+                                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {coleccion.publicaciones.map((publicacion, i) => (
+                                        <Producto key={i} producto={publicacion!} />
+                                    ))}
+                                </div>
                             </div>
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                                {coleccion.publicaciones.map((publicacion, i) => (
-                                    <Producto key={i} producto={publicacion!} />
-                                ))}
-                            </div>
-                        </div>
-                    ))
+                        ))
+
+                    )
+                        :
+                        <>
+                            <Loader className="w-6 h-6 text-secondary mx-auto mt-20 animate-spin" />
+                        </>
                 }
-
                 {/* Products Grid */}
 
             </div>
