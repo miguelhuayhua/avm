@@ -124,7 +124,7 @@ export default function ProductDetailPage({ producto }: Props) {
                     <div className="grid lg:grid-cols-2 gap-12">
                         {/* Images */}
                         <div className="space-y-4">
-                            <div className="relative w-full h-96 rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-lg">
+                            <div className="relative w-full  rounded-xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-lg">
                                 <Image
                                     src={currentImageUrl || "/placeholder.svg"}
                                     alt={selectedVariant?.titulo || producto.titulo}
