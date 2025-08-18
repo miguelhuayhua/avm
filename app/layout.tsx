@@ -15,11 +15,36 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
+
 export const metadata: Metadata = {
   title: "Vidriería AVM",
   description: "Especialistas en vidriería y carpintería de aluminio. Fabricamos e instalamos ventanas, puertas, canceles y soluciones a medida en vidrio y aluminio para hogares y negocios.",
+  openGraph: {
+    title: "Vidriería AVM",
+    description: "Especialistas en vidriería y carpintería de aluminio. Fabricamos e instalamos ventanas, puertas, canceles y soluciones a medida en vidrio y aluminio para hogares y negocios.",
+    url: "https://avm-bo.vercel.app", // Cambia esto por tu URL real
+    siteName: "Vidriería AVM - Tienda Boliviana",
+    images: [
+      {
+        url: "https://avm-bo.vercel.app/og-normal.png",
+        width: 1200,
+        height: 630,
+        alt: "Vidriería AVM - Soluciones en vidrio y aluminio",
+      },
+    ],
+    locale: "es_BO",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vidriería AVM",
+    description: "Especialistas en vidriería y carpintería de aluminio. Fabricamos e instalamos ventanas, puertas, canceles y soluciones a medida en vidrio y aluminio para hogares y negocios.",
+    images: ["https://avm-bo.vercel.app/portada.jpg"], // Cambia esto por tu imagen real
+    site: "@vidrieriaavm", // Cambia esto por tu usuario real de Twitter si tienes
+    creator: "@vidrieriaavm", // Cambia esto por tu usuario real de Twitter si tienes
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,7 +65,6 @@ export default function RootLayout({
           </div>
         </div>
       </body>
-
     </html>
   );
 }

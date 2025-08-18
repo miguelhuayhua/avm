@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, Grid3X3, Heart, List, Search, SlidersHorizontal, Eye, Phone, LoaderCircle, ChevronLeft } from "lucide-react"
+import { Search, LoaderCircle, ChevronLeft } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -42,7 +42,6 @@ export default function CatalogoPage() {
             const cat = params.get('categoria') || 'todos'
             setCategoriaSeleccionada(cat)
             setProductos(data)
-            console.log(data)
             if (cat == 'todos') {
                 setProductosFiltrados(data);
             }
