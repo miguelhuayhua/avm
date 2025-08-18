@@ -178,7 +178,7 @@ export default function ProductDetailPage({ producto }: Props) {
                             <div className="flex items-center space-x-4">
                                 {displayPrice !== null ? (
                                     <div className='flex gap-5 items-center'>
-                                        <span className="text-3xl font-bold">BOB {displayPrice} </span>
+                                        <span className="text-3xl font-bold"> {displayPrice ? "BOB " + displayPrice : "Cotizable "} </span>
                                         <span className='text-sm'>{!selectedVariant?.valores.length ? "Por defecto" : "Para la variante"}</span>
                                     </div>
                                 ) : (

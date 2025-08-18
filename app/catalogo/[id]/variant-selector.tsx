@@ -110,7 +110,9 @@ export default function VariantSelector({ opciones, variantes, onVariantChange }
                         >
                             <span>{variante.titulo}</span>
                             <span className="font-bold">
-                                BOB {variante.precio.toFixed(2)}
+                                {
+                                    variante.precio ? `BOB ${variante.precio.toFixed(2)}` : "Realice una consulta"
+                                }
                                 {!variante.estado && " (Agotado)"}
                             </span>
                         </div>
