@@ -130,7 +130,7 @@ export default function ProductDetailPage({ producto }: Props) {
                                     alt={selectedVariant?.titulo || producto.titulo}
                                     width={500}
                                     height={400}
-                                    className=" w-full h-full"
+                                    className=" w-full h-auto"
                                 />
                                 {/* Badges */}
 
